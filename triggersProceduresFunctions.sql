@@ -1,6 +1,6 @@
 ------TRIGGER
 /*
-1. Zdefiniowaæ wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME bêdzie zamieniane na du¿e litery.
+1. ZdefiniowaÄ‡ wyzwalacz na tabeli EMPLOYEES, ktÃ³ry przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME bÄ™dzie zamieniane na duÅ¼e litery.
 create or replace trigger upperCaseNames
 before update of FIRST_NAME, LAST_NAME on employees
 for each row
@@ -11,29 +11,35 @@ end;
 
 update employees set last_name = 'Domanski' where employee_id = 198;
 update employees set first_name = 'Adam' where employee_id = 198;
-2. Zdefiniowaæ wyzwalacz na tabeli EMPLOYEES, który z wykorzystaniem sekwencji wczeœniej utworzonej bêdzie numerowa³ EMPLOYEE_ID tabeli od wartoœci 200 i do wartoœci maksymalnie 999999.
-3. Zdefiniowaæ wyzwalacz na tabeli EMPLOYEES, który sprawdzi czy pole HIRE_DATE jest mniejsze lub równe dacie systemowej +-10 dni przy wstawianiu nowego pracownika lub jego modyfikacji. Jeœli nie zwrócony zostanie komunikat o b³êdzie a transakcja zostanie wycofana.
-4. Zdefiniowaæ wyzwalcz na tabeli EMPLOYEES, który wyœwietli komunikat na ekranie jaki u¿ytkownik zosta³ skasowany, wstawiony lub zmodyfikowany.
-5. Zdefiniowaæ wyzwalcz na tabeli EMPLOYEES, który przy kasowaniu lub modyfikowaniu pracownika zapisze wszystkie dane do tabeli EMP_HIST z dodatkowymi polami tj. data_czas_operacji oraz typ_operacji (DELETE, UPDATE) - wczeœniej trzeba przygotowaæ dan¹ tabelê.
-6. Zdefiniowaæ widok na tabeli EMPLOYEES i DEPARTMENTS. Na widoku zdefiniowaæ wyzwalacz typu INSTEAD OF, który przy poleceniu INSERT na widoku doda u¿ytkownika, który nie bêdzie mia³ przypisanego ¿adnego departamentu.
-7. Zdefiniowaæ wyzwalacz, który reaguje na pensjê mniejsz¹ od zera i wtedy zmienia jej wartoœæ na 0.   
+2. ZdefiniowaÄ‡ wyzwalacz na tabeli EMPLOYEES, ktÃ³ry z wykorzystaniem sekwencji wczeÅ›niej utworzonej bÄ™dzie numerowaÅ‚ EMPLOYEE_ID tabeli od wartoÅ›ci 200 i do wartoÅ›ci maksymalnie 999999.
+3. ZdefiniowaÄ‡ wyzwalacz na tabeli EMPLOYEES, ktÃ³ry sprawdzi czy pole HIRE_DATE jest mniejsze lub rÃ³wne dacie systemowej +-10 dni przy wstawianiu nowego pracownika lub jego modyfikacji. JeÅ›li nie zwrÃ³cony zostanie komunikat o bÅ‚Ä™dzie a transakcja zostanie wycofana.
+4. ZdefiniowaÄ‡ wyzwalcz na tabeli EMPLOYEES, ktÃ³ry wyÅ›wietli komunikat na ekranie jaki uÅ¼ytkownik zostaÅ‚ skasowany, wstawiony lub zmodyfikowany.
+5. ZdefiniowaÄ‡ wyzwalcz na tabeli EMPLOYEES, ktÃ³ry przy kasowaniu lub modyfikowaniu pracownika zapisze wszystkie dane do tabeli EMP_HIST z dodatkowymi polami tj. data_czas_operacji oraz typ_operacji (DELETE, UPDATE) - wczeÅ›niej trzeba przygotowaÄ‡ danÄ… tabelÄ™.
+6. ZdefiniowaÄ‡ widok na tabeli EMPLOYEES i DEPARTMENTS. Na widoku zdefiniowaÄ‡ wyzwalacz typu INSTEAD OF, ktÃ³ry przy poleceniu INSERT na widoku doda uÅ¼ytkownika, ktÃ³ry nie bÄ™dzie miaÅ‚ przypisanego Å¼adnego departamentu.
+7. ZdefiniowaÄ‡ wyzwalacz, ktÃ³ry reaguje na pensjÄ™ mniejszÄ… od zera i wtedy zmienia jej wartoÅ›Ä‡ na 0.   
 ------PROCEDURE
-1. Zdefiniuj procedurê, która wyœwietli na ekranie imiê, nazwisko oraz pensjê pracownika o identyfikatorze podanym jako pierwszy parametr. Je¿eli nie ma takiego id to zwrócony zostanie informacja a braku takiego pracownika.
-2. Zdefiniowaæ procedurê, która zwróci liczbê zatrudnionych wszystkich pracowników.
-3. Zdefiniowaæ procedurê, która zwróci liczbê departamentów bez pracowników.
-4. Zdefiniowaæ procedurê, która zwróci liczbê zatrudnionych w danym departamencie podanym jako pierwszy parametr typu IN.Parametr drugi typu OUT zwróci liczbê zatrudnionych.
-5. Zdefiniowaæ procedurê, która zwróci liczbê zatrudnionych w danym departamencie na danym stanowisku pracy podanym odpowiednio jako pierwszy i drugi parametr typu IN. Parametr trzeci typu OUT zwróci liczbê zatrudnionych.
-6. Zdefiniuj procedurê, która dla danego departamentu wyœwietli wszystkie nazwiska i imiona pracowników.
-7. Zdefiniuj procedurê która jako parametr wejœciowy przyjmie id managera, a parametrem wyjœciowym zwróci œredni¹ zarobków osób podleg³ych pod tego managera.
+1. Zdefiniuj procedurÄ™, ktÃ³ra wyÅ›wietli na ekranie imiÄ™, nazwisko oraz pensjÄ™ pracownika o identyfikatorze podanym jako pierwszy parametr. JeÅ¼eli nie ma takiego id to zwrÃ³cony zostanie informacja a braku takiego pracownika.
+2. ZdefiniowaÄ‡ procedurÄ™, ktÃ³ra zwrÃ³ci liczbÄ™ zatrudnionych wszystkich pracownikÃ³w.
+3. ZdefiniowaÄ‡ procedurÄ™, ktÃ³ra zwrÃ³ci liczbÄ™ departamentÃ³w bez pracownikÃ³w.
+4. ZdefiniowaÄ‡ procedurÄ™, ktÃ³ra zwrÃ³ci liczbÄ™ zatrudnionych w danym departamencie podanym jako pierwszy parametr typu IN.Parametr drugi typu OUT zwrÃ³ci liczbÄ™ zatrudnionych.
+5. ZdefiniowaÄ‡ procedurÄ™, ktÃ³ra zwrÃ³ci liczbÄ™ zatrudnionych w danym departamencie na danym stanowisku pracy podanym odpowiednio jako pierwszy i drugi parametr typu IN. Parametr trzeci typu OUT zwrÃ³ci liczbÄ™ zatrudnionych.
+6. Zdefiniuj procedurÄ™, ktÃ³ra dla danego departamentu wyÅ›wietli wszystkie nazwiska i imiona pracownikÃ³w.
+7. Zdefiniuj procedurÄ™ ktÃ³ra jako parametr wejÅ›ciowy przyjmie id managera, a parametrem wyjÅ›ciowym zwrÃ³ci Å›redniÄ… zarobkÃ³w osÃ³b podlegÅ‚ych pod tego managera.
 ------FUNCTION
-1. Zdefiniowaæ funkcjê, która wycina spacje na pocz¹tku i koñcu zmiennej typu VARCHAR2 i zwraca to co zostanie.
-2. Zdefiniowaæ funkcjê, która sprawdza czy dana liczba ca³kowita jest parzysta czy nieparzysta i zwraca wartoœæ 'Parzysta' lub 'Nieparzysta'.
-3. Zdefiniowaæ funkcjê, która zwraca z daty podanej jako parametr wejœciowy dzieñ tygodnia w jêzyku polskim.
-4. Zdefiniowaæ funkcjê, która bêdzie zwracaæ œredni¹ zarobków w dziale, którego numer funkcja bêdzie przyjmowaæ jako parametr.
-5. Zdefiniowaæ funkcjê z trzema parametrami, która sprawdzi czy dane boki tworz¹ trój¹t, a jeœli tak to obliczyæ jego pole.
-6. Zdefiniowaæ funkcjê zamieniajac¹ wszystkie spacje podkreœleniem.
-7. Zdefiniowaæ funkcjê do odwracania stringu.
-8. Zdefiniowaæ funckcjê PESEL, która sprawdza czy liczba jest poprawnym typem CHAR o okreœlonej d³ugoœci zawieraj¹cy tylko cyfry od 0-9 (nie sprawdzamy poprawnoœci funkcji PESEL)
-9. Zdefiniowaæ funkcjê, która sprawdza czy dana liczba jest liczb¹ pierwsz¹.
-10. Zdefiniowaæ funkcjê do obliczenia wartoœci silnia z liczby ca³kowitej (zdefiniowaæ obs³ugê b³êdów w przypadku liczb mniejszych od 1 i takich, które przekrocz¹ zakres wykorzystywaneo typu.
+1. ZdefiniowaÄ‡ funkcjÄ™, ktÃ³ra wycina spacje na poczÄ…tku i koÅ„cu zmiennej typu VARCHAR2 i zwraca to co zostanie.
+create or replace function trimFunc(str IN VARCHAR2)
+RETURN varchar2
+is
+begin
+    return ltrim(rtrim(str));
+end trimFunc;
+2. ZdefiniowaÄ‡ funkcjÄ™, ktÃ³ra sprawdza czy dana liczba caÅ‚kowita jest parzysta czy nieparzysta i zwraca wartoÅ›Ä‡ 'Parzysta' lub 'Nieparzysta'.
+3. ZdefiniowaÄ‡ funkcjÄ™, ktÃ³ra zwraca z daty podanej jako parametr wejÅ›ciowy dzieÅ„ tygodnia w jÄ™zyku polskim.
+4. ZdefiniowaÄ‡ funkcjÄ™, ktÃ³ra bÄ™dzie zwracaÄ‡ Å›redniÄ… zarobkÃ³w w dziale, ktÃ³rego numer funkcja bÄ™dzie przyjmowaÄ‡ jako parametr.
+5. ZdefiniowaÄ‡ funkcjÄ™ z trzema parametrami, ktÃ³ra sprawdzi czy dane boki tworzÄ… trÃ³jÄ…t, a jeÅ›li tak to obliczyÄ‡ jego pole.
+6. ZdefiniowaÄ‡ funkcjÄ™ zamieniajacÄ… wszystkie spacje podkreÅ›leniem.
+7. ZdefiniowaÄ‡ funkcjÄ™ do odwracania stringu.
+8. ZdefiniowaÄ‡ funckcjÄ™ PESEL, ktÃ³ra sprawdza czy liczba jest poprawnym typem CHAR o okreÅ›lonej dÅ‚ugoÅ›ci zawierajÄ…cy tylko cyfry od 0-9 (nie sprawdzamy poprawnoÅ›ci funkcji PESEL)
+9. ZdefiniowaÄ‡ funkcjÄ™, ktÃ³ra sprawdza czy dana liczba jest liczbÄ… pierwszÄ….
+10. ZdefiniowaÄ‡ funkcjÄ™ do obliczenia wartoÅ›ci silnia z liczby caÅ‚kowitej (zdefiniowaÄ‡ obsÅ‚ugÄ™ bÅ‚Ä™dÃ³w w przypadku liczb mniejszych od 1 i takich, ktÃ³re przekroczÄ… zakres wykorzystywaneo typu.
 */
