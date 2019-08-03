@@ -34,6 +34,21 @@ begin
     return ltrim(rtrim(str));
 end trimFunc;
 2. Zdefiniować funkcję, która sprawdza czy dana liczba całkowita jest parzysta czy nieparzysta i zwraca wartość 'Parzysta' lub 'Nieparzysta'.
+create or replace FUNCTION isOddorNo(liczba IN number)
+return varchar2
+is
+begin
+    If mod(liczba,2) = 0 Then
+        return 'Parzysta';
+    else
+        return 'Nieparzysta';
+    end if;
+end;
+
+begin
+dbms_output.put_line(isoddorno(105));
+end;
+
 3. Zdefiniować funkcję, która zwraca z daty podanej jako parametr wejściowy dzień tygodnia w języku polskim.
 4. Zdefiniować funkcję, która będzie zwracać średnią zarobków w dziale, którego numer funkcja będzie przyjmować jako parametr.
 5. Zdefiniować funkcję z trzema parametrami, która sprawdzi czy dane boki tworzą trójąt, a jeśli tak to obliczyć jego pole.
