@@ -16,7 +16,20 @@ update employees set first_name = 'Adam' where employee_id = 198;
 4. Zdefiniować wyzwalcz na tabeli EMPLOYEES, który wyświetli komunikat na ekranie jaki użytkownik został skasowany, wstawiony lub zmodyfikowany.
 5. Zdefiniować wyzwalcz na tabeli EMPLOYEES, który przy kasowaniu lub modyfikowaniu pracownika zapisze wszystkie dane do tabeli EMP_HIST z dodatkowymi polami tj. data_czas_operacji oraz typ_operacji (DELETE, UPDATE) - wcześniej trzeba przygotować daną tabelę.
 6. Zdefiniować widok na tabeli EMPLOYEES i DEPARTMENTS. Na widoku zdefiniować wyzwalacz typu INSTEAD OF, który przy poleceniu INSERT na widoku doda użytkownika, który nie będzie miał przypisanego żadnego departamentu.
-7. Zdefiniować wyzwalacz, który reaguje na pensję mniejszą od zera i wtedy zmienia jej wartość na 0.   
+7. Zdefiniować wyzwalacz, który reaguje na pensję mniejszą od zera i wtedy zmienia jej wartość na 0.
+
+create or replace TRIGGER notMinusSalary
+before update of salary on employees
+for each row
+begin
+    if :new.salary < 0 then
+        dbms_output.put_line('Wartość poniżej zera!');
+        :new.salary := 0;
+    end if;
+end;
+
+update employees set salary = -3000 where employee_id = 198;
+
 ------PROCEDURE
 1. Zdefiniuj procedurę, która wyświetli na ekranie imię, nazwisko oraz pensję pracownika o identyfikatorze podanym jako pierwszy parametr. Jeżeli nie ma takiego id to zwrócony zostanie informacja a braku takiego pracownika.
 2. Zdefiniować procedurę, która zwróci liczbę zatrudnionych wszystkich pracowników.
