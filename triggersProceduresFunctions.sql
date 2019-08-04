@@ -50,6 +50,22 @@ dbms_output.put_line(isoddorno(105));
 end;
 
 3. Zdefiniować funkcję, która zwraca z daty podanej jako parametr wejściowy dzień tygodnia w języku polskim.
+
+create or replace FUNCTION getDay(yourDate in date)
+return char
+is
+begin
+    if extract(day from yourdate) < 10 then
+        return '0' || to_char(extract(day from yourdate));
+    else
+        return extract(day from yourdate);
+    end if;
+end;
+
+begin
+DBMS_OUTPUT.PUT_LINE(getDay('1998-03-07'));
+end;
+
 4. Zdefiniować funkcję, która będzie zwracać średnią zarobków w dziale, którego numer funkcja będzie przyjmować jako parametr.
 5. Zdefiniować funkcję z trzema parametrami, która sprawdzi czy dane boki tworzą trójąt, a jeśli tak to obliczyć jego pole.
 6. Zdefiniować funkcję zamieniajacą wszystkie spacje podkreśleniem.
