@@ -2,7 +2,7 @@
 /*
 1. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME będzie zamieniane na duże litery.
 create or replace trigger upperCaseNames
-before update of FIRST_NAME, LAST_NAME on employees
+before update or update of FIRST_NAME, LAST_NAME on employees
 for each row
 begin
     :NEW.FIRST_NAME := UPPER(:NEW.first_name);
@@ -80,6 +80,21 @@ DBMS_OUTPUT.PUT_LINE(getDay('1998-03-07'));
 end;
 
 4. Zdefiniować funkcję, która będzie zwracać średnią zarobków w dziale, którego numer funkcja będzie przyjmować jako parametr.
+
+create or replace function getAvgAndDep(dep in number)
+return number
+is
+    avgDep number;
+begin
+    select round(avg(salary),2) into avgDep
+    from employees where department_id = dep;
+    return avgDep;
+end;
+
+begin
+DBMS_OUTPUT.PUT_LINE(getAvgAndDep(50));
+end;
+
 5. Zdefiniować funkcję z trzema parametrami, która sprawdzi czy dane boki tworzą trójąt, a jeśli tak to obliczyć jego pole.
 6. Zdefiniować funkcję zamieniajacą wszystkie spacje podkreśleniem.
 7. Zdefiniować funkcję do odwracania stringu.
