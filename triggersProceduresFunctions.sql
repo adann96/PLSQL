@@ -13,6 +13,22 @@ update employees set last_name = 'Domanski' where employee_id = 198;
 update employees set first_name = 'Adam' where employee_id = 198;
 2. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który z wykorzystaniem sekwencji wcześniej utworzonej będzie numerował EMPLOYEE_ID tabeli od wartości 200 i do wartości maksymalnie 999999.
 3. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który sprawdzi czy pole HIRE_DATE jest mniejsze lub równe dacie systemowej +-10 dni przy wstawianiu nowego pracownika lub jego modyfikacji. Jeśli nie zwrócony zostanie komunikat o błędzie a transakcja zostanie wycofana.
+
+create or replace trigger lowerOrHigherThanSysDate
+before insert or update of hire_date on employees
+for each row
+declare
+    systemDate date;
+begin
+    select sysdate into systemDate from dual;
+    if (:new.hire_date > (systemDate + 10)) or (:new.hire_date < (systemDate - 10)) Then
+        :new.hire_date := :old.hire_date;
+        DBMS_OUTPUT.PUT_LINE('Transakcja wycofana');
+    else
+        DBMS_OUTPUT.PUT_LINE('Nowa data zatrudnienia -> OK!');
+    end if;
+end;
+
 4. Zdefiniować wyzwalcz na tabeli EMPLOYEES, który wyświetli komunikat na ekranie jaki użytkownik został skasowany, wstawiony lub zmodyfikowany.
 5. Zdefiniować wyzwalcz na tabeli EMPLOYEES, który przy kasowaniu lub modyfikowaniu pracownika zapisze wszystkie dane do tabeli EMP_HIST z dodatkowymi polami tj. data_czas_operacji oraz typ_operacji (DELETE, UPDATE) - wcześniej trzeba przygotować daną tabelę.
 6. Zdefiniować widok na tabeli EMPLOYEES i DEPARTMENTS. Na widoku zdefiniować wyzwalacz typu INSTEAD OF, który przy poleceniu INSERT na widoku doda użytkownika, który nie będzie miał przypisanego żadnego departamentu.
