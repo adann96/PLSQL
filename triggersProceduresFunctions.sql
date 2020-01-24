@@ -8,7 +8,8 @@ begin
     where EMPLOYEE_ID = 110;
     dbms_output.put_line('Employee incentive is: ' || incentive);
 end;
-
+2. Show me what You got:
+SELECT owner, table_name FROM all_tables
 */
 ------TRIGGER
 /*
