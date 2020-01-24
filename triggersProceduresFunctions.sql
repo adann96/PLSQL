@@ -1,3 +1,15 @@
+------Oracle
+/*
+1. Write a PL/SQL block to calculate the incentive of an employee whose ID is 110. (salary * 0.12)?
+declare
+    incentive number(8,2);
+begin
+    select salary * 0.12 into incentive from hr.employees
+    where EMPLOYEE_ID = 110;
+    dbms_output.put_line('Employee incentive is: ' || incentive);
+end;
+
+*/
 ------TRIGGER
 /*
 1. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME będzie zamieniane na duże litery.
@@ -47,7 +59,8 @@ end;
 update employees set salary = -3000 where employee_id = 198;
 
 ------PROCEDURE
-1. Zdefiniuj procedurę, która wyświetli na ekranie imię, nazwisko oraz pensję pracownika o identyfikatorze podanym jako pierwszy parametr. Jeżeli nie ma takiego id to zwrócony zostanie informacja a braku takiego pracownika.
+1. Zdefiniuj procedurę, która wyświetli na ekranie imię, nazwisko oraz pensję pracownika o identyfikatorze podanym jako pierwszy 
+parametr. Jeżeli nie ma takiego id to zwrócony zostanie informacja a braku takiego pracownika.
 2. Zdefiniować procedurę, która zwróci liczbę zatrudnionych wszystkich pracowników.
 3. Zdefiniować procedurę, która zwróci liczbę departamentów bez pracowników.
 4. Zdefiniować procedurę, która zwróci liczbę zatrudnionych w danym departamencie podanym jako pierwszy parametr typu IN.Parametr drugi typu OUT zwróci liczbę zatrudnionych.
