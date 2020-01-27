@@ -8,9 +8,85 @@ begin
     where EMPLOYEE_ID = 110;
     dbms_output.put_line('Employee incentive is: ' || incentive);
 end;
+
 2. Show me what You got:
 SELECT owner, table_name FROM all_tables
-*/
+
+3. Switch case for determining salary: < 5000, between 5000 and 10000, > 10000.
+select employees.first_name, employees.last_name, employees.salary,
+case
+    when employees.SALARY < 5000 then 'Niska pensja'
+    when employees.SALARY between 5000 and 10000 then 'Srednia pensja'
+    when employees.SALARY > 10000 then 'Wysoka pensja'
+end
+from hr.employees;
+
+4. Use NVL, NVL2, Coalesce, Decode to switch from 'null' to 0.
+
+--NVL('Jakiś string', 'Weź go zamien na to co jest tu')
+select COMMISSION_PCT,
+case
+    when COMMISSION_PCT is null or COMMISSION_PCT = '' then NVL('Jakiś string', 'Weź go zamien na to co jest tu')(COMMISSION_PCT, '0')
+    else COMMISSION_PCT
+end AS "NewCOMMISSION_PCT"
+from hr.employees;
+
+--NVL2('Jakiś string','Jak null, to to','Jak nie null, to to')
+select COMMISSION_PCT,
+case
+    when COMMISSION_PCT is null or COMMISSION_PCT = '' then NVL2(COMMISSION_PCT, COMMISSION_PCT, '0')
+end AS "NewCOMMISSION_PCT"
+from hr.employees;
+
+--COALESCE('is not null','it is')
+select COALESCE(COMMISSION_PCT, 0) from hr.employees;
+
+
+SELECT First_Name || ' ' || Last_Name as Employee,
+DECODE(COMMISSION_PCT, null, '0'
+                     , '-' , '0',COMMISSION_PCT) result
+FROM hr.employees;
+
+5. All Employees table with null values in COMMISSION_PCT without 'where':
+
+select * from hr.employees order by COMMISSION_PCT nulls first;
+
+6. Select current user:
+
+SELECT USERNAME FROM V$SESSION;
+
+7. Select current logged user with his ID and current date with time using an appropriate format:
+
+SELECT USER#, username FROM V$SESSION;
+select TO_CHAR(SYSTIMESTAMP, 'YY:MM:DD HH:MI:SS') from dual;
+
+8. Select current date and convert from string to date:
+
+begin
+ dbms_output.put_line(TO_DATE('2020:01:27','yyyy/mm/dd'));
+end;
+
+9. Calculate difference between the earliest and the latest hired employees:
+
+declare
+    date1 date;
+    date2 date;
+    monthsNo number;
+begin
+    select HIRE_DATE into date1
+    from hr.employees
+    order by HIRE_DATE desc fetch first 1 row only;
+    
+    select HIRE_DATE into date2
+    from hr.employees
+    order by HIRE_DATE asc fetch first 1 row only;
+    
+    monthsNo := MONTHS_BETWEEN(date1, date2);
+    
+    dbms_output.put_line(round(monthsNo));
+end;
+
+/*
 ------TRIGGER
 /*
 1. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME będzie zamieniane na duże litery.
