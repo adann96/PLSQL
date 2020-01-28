@@ -1,5 +1,11 @@
 ------Oracle
-/*
+
+Systemowe czary mary:
+* enable polish words:
+- alter session set nls_language=POLISH;
+* enable put line:
+- set serveroutput on;
+
 1. Write a PL/SQL block to calculate the incentive of an employee whose ID is 110. (salary * 0.12)?
 declare
     incentive number(8,2);
@@ -86,9 +92,41 @@ begin
     dbms_output.put_line(round(monthsNo));
 end;
 
-/*
+10. Select last day from the current date:
+
+declare
+    currDate date;
+begin
+    select sysdate into currDate
+    from dual;
+    dbms_output.put_line(LAST_DAY(TO_DATE(currDate)));
+end;
+
+11. How many days does february in 2020 have?
+
+begin
+    dbms_output.put_line(LAST_DAY(TO_DATE('2020/02/01','YYYY/MM/DD')));
+end;
+
+12. Select in words the day of new years eve of 2020:
+                                          
+begin
+    dbms_output.put_line(to_char(date'2020-12-31','DAY'));
+end;
+          
+13. Add three months to the current one:
+                                 
+declare
+    currDate date;
+begin
+    select sysdate into currDate
+    from dual;
+    dbms_output.put_line(add_months(currDate, 3));
+end;
+                                    
+14. 
 ------TRIGGER
-/*
+
 1. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME będzie zamieniane na duże litery.
 create or replace trigger upperCaseNames
 before update or update of FIRST_NAME, LAST_NAME on employees
@@ -207,4 +245,3 @@ end;
 8. Zdefiniować funckcję PESEL, która sprawdza czy liczba jest poprawnym typem CHAR o określonej długości zawierający tylko cyfry od 0-9 (nie sprawdzamy poprawności funkcji PESEL)
 9. Zdefiniować funkcję, która sprawdza czy dana liczba jest liczbą pierwszą.
 10. Zdefiniować funkcję do obliczenia wartości silnia z liczby całkowitej (zdefiniować obsługę błędów w przypadku liczb mniejszych od 1 i takich, które przekroczą zakres wykorzystywaneo typu.
-*/
