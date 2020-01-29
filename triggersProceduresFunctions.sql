@@ -124,7 +124,17 @@ begin
     dbms_output.put_line(add_months(currDate, 3));
 end;
                                     
-14. 
+14. Calculate the average salary for each department. Use natural join:
+                                    
+select HR.DEPARTMENTS.DEPARTMENT_NAME, avg(HR.EMPLOYEES.SALARY) as SREDNIA from HR.EMPLOYEES natural join HR.DEPARTMENTS
+group by HR.DEPARTMENTS.DEPARTMENT_NAME;
+                 
+15. Calculate the maximum wage for each position without "Clerk":
+
+select HR.JOBS.JOB_TITLE, max(HR.EMPLOYEES.SALARY) from HR.EMPLOYEES natural join HR.JOBS
+group by HR.JOBS.JOB_TITLE
+having HR.JOBS.JOB_TITLE not like '%Clerk';
+                                    
 ------TRIGGER
 
 1. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który przy wstawieniu lub modyfikowaniu danych pole LAST_NAME i FIRST_NAME będzie zamieniane na duże litery.
