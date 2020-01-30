@@ -5,6 +5,8 @@ Systemowe czary mary:
 - alter session set nls_language=POLISH;
 * enable put line:
 - set serveroutput on;
+* sort by polish language;
+- alter session set nls_sort=POLISH;
 
 1. Write a PL/SQL block to calculate the incentive of an employee whose ID is 110. (salary * 0.12)?
 declare
