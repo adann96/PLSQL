@@ -151,6 +151,7 @@ end;
 update employees set last_name = 'Domanski' where employee_id = 198;
 update employees set first_name = 'Adam' where employee_id = 198;
 2. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który z wykorzystaniem sekwencji wcześniej utworzonej będzie numerował EMPLOYEE_ID tabeli od wartości 200 i do wartości maksymalnie 999999.
+Po chuj, skoro EMPLOYEE_ID to klucz podstawowy i jest on zwykle autoinkrementujacy się?                     
 3. Zdefiniować wyzwalacz na tabeli EMPLOYEES, który sprawdzi czy pole HIRE_DATE jest mniejsze lub równe dacie systemowej +-10 dni przy wstawianiu nowego pracownika lub jego modyfikacji. Jeśli nie zwrócony zostanie komunikat o błędzie a transakcja zostanie wycofana.
 
 create or replace trigger lowerOrHigherThanSysDate
