@@ -189,13 +189,69 @@ update employees set salary = -3000 where employee_id = 198;
 ------PROCEDURE
 1. Zdefiniuj procedurę, która wyświetli na ekranie imię, nazwisko oraz pensję pracownika o identyfikatorze podanym jako pierwszy 
 parametr. Jeżeli nie ma takiego id to zwrócony zostanie informacja a braku takiego pracownika.
+                                                                  
+create or replace procedure showMeYourEmpDetails(v_id IN HR.EMPLOYEES.EMPLOYEE_ID%TYPE)
+AS
+    firstName HR.EMPLOYEES.FIRST_NAME%TYPE;
+    lastName HR.EMPLOYEES.LAST_NAME%TYPE;
+    salEmp HR.EMPLOYEES.SALARY%TYPE;
+Begin
+    select FIRST_NAME, LAST_NAME, SALARY 
+    into firstName, lastName, salEmp
+    from HR.EMPLOYEES
+    where HR.EMPLOYEES.EMPLOYEE_ID = v_id;
+    dbms_output.put_line('Ten delikwent: ' || firstName || ' | ' || lastName || ' | ' || salEmp);
+Exception
+    When no_data_found then
+        dbms_output.put_line('The is no data matching criteria provided!');
+    When others then
+        dbms_output.put_line('Something wrong happened');
+End;
+                                                                  
 2. Zdefiniować procedurę, która zwróci liczbę zatrudnionych wszystkich pracowników.
+
+create or replace procedure employeesAmount (emp_amount OUT number)
+As
+    v_emp_amount number;
+begin
+    select count(*) into v_emp_amount
+    from HR.EMPLOYEES;
+    emp_amount := v_emp_amount;
+end;
+                                                                  
 3. Zdefiniować procedurę, która zwróci liczbę departamentów bez pracowników.
+                                                                  
+create or replace procedure retDepNoWithoutEmp (depNoWithoutEmp OUT number)
+IS
+    v_depNoWithoutEmp number;
+begin
+    select count(*) as Amount into v_depNoWithoutEmp
+    from
+    (select HR.DEPARTMENTS.DEPARTMENT_NAME, count(HR.EMPLOYEES.EMPLOYEE_ID) 
+    from HR.DEPARTMENTS left join HR.EMPLOYEES on HR.DEPARTMENTS.DEPARTMENT_ID = HR.EMPLOYEES.DEPARTMENT_ID
+    group by HR.DEPARTMENTS.DEPARTMENT_NAME
+    having count(HR.EMPLOYEES.EMPLOYEE_ID) = 0);
+    depNoWithoutEmp := v_depNoWithoutEmp;
+end; 
+                                                                 
 4. Zdefiniować procedurę, która zwróci liczbę zatrudnionych w danym departamencie podanym jako pierwszy parametr typu IN.Parametr drugi typu OUT zwróci liczbę zatrudnionych.
+                                                                  
+create or replace procedure retAmOfHired (dep IN HR.DEPARTMENTS.DEPARTMENT_ID%TYPE, liczba OUT number)
+IS
+    v_dep HR.DEPARTMENTS.DEPARTMENT_ID%TYPE;
+begin
+    select count(HR.EMPLOYEES.EMPLOYEE_ID) into v_dep
+    from HR.DEPARTMENTS left join HR.EMPLOYEES on HR.DEPARTMENTS.DEPARTMENT_ID = HR.EMPLOYEES.DEPARTMENT_ID
+    where HR.DEPARTMENTS.DEPARTMENT_ID = dep;
+    liczba := v_dep;
+end;
+                                                                  
 5. Zdefiniować procedurę, która zwróci liczbę zatrudnionych w danym departamencie na danym stanowisku pracy podanym odpowiednio jako pierwszy i drugi parametr typu IN. Parametr trzeci typu OUT zwróci liczbę zatrudnionych.
 6. Zdefiniuj procedurę, która dla danego departamentu wyświetli wszystkie nazwiska i imiona pracowników.
 7. Zdefiniuj procedurę która jako parametr wejściowy przyjmie id managera, a parametrem wyjściowym zwróci średnią zarobków osób podległych pod tego managera.
+
 ------FUNCTION
+                                                                  
 1. Zdefiniować funkcję, która wycina spacje na początku i końcu zmiennej typu VARCHAR2 i zwraca to co zostanie.
 create or replace function trimFunc(str IN VARCHAR2)
 RETURN varchar2
