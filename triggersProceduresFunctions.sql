@@ -247,9 +247,65 @@ begin
 end;
                                                                   
 5. Zdefiniować procedurę, która zwróci liczbę zatrudnionych w danym departamencie na danym stanowisku pracy podanym odpowiednio jako pierwszy i drugi parametr typu IN. Parametr trzeci typu OUT zwróci liczbę zatrudnionych.
+
+create or replace procedure hiredEmpNo(depName IN HR.DEPARTMENTS.DEPARTMENT_NAME%TYPE, empName IN HR.JOBS.JOB_TITLE%TYPE, empNo OUT number)
+IS
+    noOfHired number;
+begin
+    select count(HR.EMPLOYEES.EMPLOYEE_ID) into noOfHired
+    from HR.EMPLOYEES
+    natural join HR.DEPARTMENTS 
+    natural join HR.JOBS
+    where HR.DEPARTMENTS.DEPARTMENT_NAME = depName and HR.JOBS.JOB_TITLE = empName;
+    empNo := noOfHired;
+    dbms_output.put_line(empNo);
+end;
+                                                                  
+--executing
+                                                                  
+declare
+    res number;
+begin
+    hiredEmpNo('Shipping','Stock Clerk', res);
+end;
+                                                                  
 6. Zdefiniuj procedurę, która dla danego departamentu wyświetli wszystkie nazwiska i imiona pracowników.
+
+create or replace procedure showMeAllEmployees(depName IN HR.DEPARTMENTS.DEPARTMENT_NAME%TYPE)
+IS
+    nameOfEmp HR.EMPLOYEES.FIRST_NAME%TYPE;
+    surnameOfEmp HR.EMPLOYEES.LAST_NAME%TYPE;
+    CURSOR l_cursor is select HR.EMPLOYEES.FIRST_NAME, HR.EMPLOYEES.LAST_NAME as Employee from HR.EMPLOYEES natural join HR.DEPARTMENTS where HR.DEPARTMENTS.DEPARTMENT_NAME = depName;
+Begin
+    open l_cursor;
+    loop
+    fetch l_cursor into nameOfEmp, surnameOfEmp;
+        EXIT when l_cursor%notfound;
+        dbms_output.put_line(nameOfEmp || ' ' || surnameOfEmp);
+    end loop;
+    CLOSE l_cursor;
+End;
+    
+begin
+    showMeAllEmployees('Shipping');
+end;
+                                                                  
 7. Zdefiniuj procedurę która jako parametr wejściowy przyjmie id managera, a parametrem wyjściowym zwróci średnią zarobków osób podległych pod tego managera.
 
+create or replace procedure getAvgSal(manID IN HR.DEPARTMENTS.MANAGER_ID%TYPE)
+is
+    avg_salary number;
+begin
+    select avg(SALARY) as Average_Salary into avg_salary
+    from HR.EMPLOYEES natural join HR.DEPARTMENTS natural join HR.JOBS
+    where MANAGER_ID = manID;
+    dbms_output.put_line(avg_salary);
+end;
+
+begin
+   getAvgSal(103); 
+end;
+                                                                  
 ------FUNCTION
                                                                   
 1. Zdefiniować funkcję, która wycina spacje na początku i końcu zmiennej typu VARCHAR2 i zwraca to co zostanie.
