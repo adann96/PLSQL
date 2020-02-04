@@ -1,4 +1,4 @@
-------Oracle
+-----Oracle
 
 Systemowe czary mary:
 * enable polish words:
