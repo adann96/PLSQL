@@ -285,7 +285,7 @@ Begin
     end loop;
     CLOSE l_cursor;
 End;
-    
+                                                                  
 begin
     showMeAllEmployees('Shipping');
 end;
@@ -365,8 +365,50 @@ DBMS_OUTPUT.PUT_LINE(getAvgAndDep(50));
 end;
 
 5. Zdefiniować funkcję z trzema parametrami, która sprawdzi czy dane boki tworzą trójąt, a jeśli tak to obliczyć jego pole.
+                                  
+create or replace function obliczKurwaPole(a IN number, b IN number, c IN number)
+return varchar
+is
+    pitkaGolasa number;
+begin
+    pitkaGolasa := POWER(a,2) + POWER(b,2);
+    IF pitkaGolasa < POWER(c,2) OR pitkaGolasa > POWER(c,2) Then
+        return 'No chuj, nie tworzy...';
+    Else
+        return (pitkaGolasa || ' = ' || POWER(c,2) || ', więc tworzy.');
+    End if;
+end;
+
+begin 
+    dbms_output.put_line(obliczKurwaPole(2,3,4));
+end;
+                                  
 6. Zdefiniować funkcję zamieniajacą wszystkie spacje podkreśleniem.
+                                         
+create or replace function wezZamien(jakisTamString IN varchar)
+return varchar
+is
+begin
+    return replace(jakisTamString,' ','_');
+end;
+
+begin
+    dbms_output.put_line(wezZamien('Cos tam bym wpisał, ale nie wiem co.'));
+end;
+                                         
 7. Zdefiniować funkcję do odwracania stringu.
+                                   
+create or replace function wezOdwroc(jakisString IN varchar2)
+return varchar2
+is
+begin
+    return UTL_RAW.cast_to_varchar2 (UTL_RAW.reverse (UTL_RAW.cast_to_raw (jakisString)));
+end;
+
+begin
+    dbms_output.put_line(wezOdwroc('Ojapierdole'));
+end;
+                                   
 8. Zdefiniować funckcję PESEL, która sprawdza czy liczba jest poprawnym typem CHAR o określonej długości zawierający tylko cyfry od 0-9 (nie sprawdzamy poprawności funkcji PESEL)
 9. Zdefiniować funkcję, która sprawdza czy dana liczba jest liczbą pierwszą.
 10. Zdefiniować funkcję do obliczenia wartości silnia z liczby całkowitej (zdefiniować obsługę błędów w przypadku liczb mniejszych od 1 i takich, które przekroczą zakres wykorzystywaneo typu.
