@@ -3,6 +3,8 @@
 Systemowe czary mary:
 * enable polish words:
 - alter session set nls_language=POLISH;
+* enable adding new users;
+- alter session set "_ORACLE_SCRIPT"=true; /*12c*/
 * enable put line:
 - set serveroutput on;
 * sort by polish language;
