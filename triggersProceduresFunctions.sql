@@ -1,5 +1,22 @@
 -----Oracle
 
+Więc tak:
+Bazy:
+- czym się różni procedura od funkcji (najbardziej standardowe pytanie),
+- najbardziej podstawowe indeksy,
+- jak zoptymalizować pracę z bazą,
+- zadanie ze słuchu:
+masz np. bazę z produktami i dostawcaim, musisz napisać sqla, żeby wyświetlił w pierwszej kolumnie dostawców, 
+a w drugiej ilość produktów przypisanych do dostawców i ta ilość np. > 30, łaczenie tabel, group by i having się kłania
+
+linux:
+- pwd,
+- grep,
+- cd,
+- nadawanie uprawnień,
+- które uprawnienia maja pierwszeństwo, tzn. jest user, który ma rwx, i grupa do której należy ma rw- (bez execute)
+i które dostępy maja pierwszeństwo, tu chyba chodzi, że jak user ma x pomimo, że grupa nie ma, to nie można mu zabronić executować
+
 Systemowe czary mary:
 * enable polish words:
 - alter session set nls_language=POLISH;
